@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     axios
-      .get("http://www.mocky.io/v2/5d1ef97d310000552febe99d")
+      .get(process.env.REACT_APP_API)
       .then((response) => {
         setTweets(response.data);
         setLoading(false);
