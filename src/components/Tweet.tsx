@@ -37,9 +37,7 @@ function Tweet(props: ITweetProps) {
       )}
       <Card.Body>
         <Card.Title as="div">
-          <Link to={`/tweet/${tweet._id}`}>
-            <strong>{tweet.author}</strong>
-          </Link>
+            <strong><a href={tweet._id}>{tweet.author}</a></strong>
           <span className="text-muted">
             {new Date(tweet.publishedDate).getDate()}{" "}
             {month[new Date(tweet.publishedDate).getMonth()]}
