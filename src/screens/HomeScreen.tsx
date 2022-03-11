@@ -42,7 +42,7 @@ const HomeScreen = () => {
           tweet.publishedDate <= startDate[1]
       )
     );
-  }, [startDate]);
+  }, [startDate, tweets]);
 
   const onLikeButtonClicked = (id: string) => {
     let arrTweet: string[] = [id];
