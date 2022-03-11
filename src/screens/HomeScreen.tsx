@@ -24,7 +24,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     axios
-      .get(process.env.REACT_APP_API)
+      .get(`${process.env.REACT_APP_API}`)
       .then((response) => {
         setTweets(response.data);
         setLoading(false);
