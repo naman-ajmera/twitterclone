@@ -33,17 +33,8 @@ const HomeScreen = () => {
       .catch((err) => {
         console.log(err);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [crossClicked]);
-
-  useEffect(() => {
-    tweets.data = tweets.data.filter(
-      (tweet: any) =>
-        tweet.publishedDate >= startDate[0] &&
-        tweet.publishedDate <= startDate[1]
-    )
-    setTweets({...tweets})
-  
-  }, [startDate]);
 
   const onLikeButtonClicked = (id: string) => {
     let arrTweet: string[] = [id];
@@ -67,6 +58,12 @@ const HomeScreen = () => {
       setLoading(true);
     } else {
       setStartDate([e[0], e[1]]);
+      tweets.data = tweets.data.filter(
+        (tweet: any) =>
+          tweet.publishedDate >= e[0] &&
+          tweet.publishedDate <= e[1]
+      )
+      setTweets({...tweets})
     }
   };
 
