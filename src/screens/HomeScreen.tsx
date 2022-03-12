@@ -6,7 +6,7 @@ import { DateRangePicker } from "rsuite";
 import "rsuite/dist/rsuite.min.css";
 
 const HomeScreen = () => {
-  const [tweets, setTweets] = useState([]);
+  const [tweets, setTweets] = useState({data:[]});
   const [startDate, setStartDate] = useState<[Date, Date]>([
     new Date(),
     new Date(),
@@ -24,9 +24,10 @@ const HomeScreen = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API}`)
-      .then((response) => {
-        setTweets(response.data);
+      .get("https://api.jsonbin.io/b/622c584b061827674374d527")
+      .then((response:any) => {
+        tweets.data = response.data
+        setTweets({...tweets});
         setLoading(false);
       })
       .catch((err) => {
@@ -35,14 +36,14 @@ const HomeScreen = () => {
   }, [crossClicked]);
 
   useEffect(() => {
-    setTweets(
-      tweets.filter(
-        (tweet: any) =>
-          tweet.publishedDate >= startDate[0] &&
-          tweet.publishedDate <= startDate[1]
-      )
-    );
-  }, [startDate, tweets]);
+    tweets.data = tweets.data.filter(
+      (tweet: any) =>
+        tweet.publishedDate >= startDate[0] &&
+        tweet.publishedDate <= startDate[1]
+    )
+    setTweets({...tweets})
+  
+  }, [startDate]);
 
   const onLikeButtonClicked = (id: string) => {
     let arrTweet: string[] = [id];
@@ -89,8 +90,8 @@ const HomeScreen = () => {
           }}
         />
       )}
-      {tweets && tweets.length !== 0
-        ? tweets.map((tweet: any) => (
+      {tweets.data && tweets.data.length !== 0
+        ? tweets.data.map((tweet: any) => (
             <Row key={tweet._id} style={{ justifyContent: "center" }}>
               <Col sm={12} md={6} lg={6}>
                 <Tweet
